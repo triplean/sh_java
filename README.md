@@ -5,3 +5,26 @@ Making Security Breach more casual player friendly
 Python Edition, tends to be slower or not compatible with some devices, but you can run or build very easy.
 
 Java edition is very fast, and extremely compatible with any kind of device, but running the app may be tedious for some users.
+
+## Prerequisites
+You need JRE (Java Runtime Environment) 22.0.1 or newer.
+
+## Running
+There is two different methods for running:
+- Just opening the file (.jar)
+- Or typing the following in your terminal or command line
+
+1. Open a terminal in the installation path
+2. Execute the following
+
+```
+java -jar securityhelpy.jar
+```
+
+If it doesn't works you can try the following:
+1. In the same terminal write the full path to your java.exe (Located in your Java installtion path/bin/)
+2. Next write this:
+```
+YOUR_JAVA_INSTALLATION_PATH -jar securityhelpy.jar
+```
+Security Helpy is now Running!
