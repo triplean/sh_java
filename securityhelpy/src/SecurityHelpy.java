@@ -1,22 +1,29 @@
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.lang.reflect.Array;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 import java.util.Scanner;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.File;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.io.BufferedInputStream;
 
 public class SecurityHelpy extends JFrame {
+    String securityhelpy_path = "./img";
+    String iconPath = securityhelpy_path + "/icon.png";
+    String icon_d_p = "r";
+
     private static final String version_app = "1.1.0";
     private static final String creditos = "\nGracias por usar Security Helpy!\nDesarrollado por: TripleAn\nGitHub: https://github.com/triplean\n";
     private JTextField searchField;
@@ -24,7 +31,21 @@ public class SecurityHelpy extends JFrame {
     private JList<String> postsList;
     private JEditorPane postsText;
 
+    public void icon_down() {
+        try {
+            InputStream in = new URL("https://triplean.github.io/projects/SecurityHelpy/resources/logo_new.png").openStream();
+            Files.copy(in, Paths.get(iconPath), StandardCopyOption.REPLACE_EXISTING);
+            icon_d_p = "f";
+            icon = iconPath;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    String icon = null;
+
     public SecurityHelpy() {
+        icon_down();
         checkUpdates();
         createWidgets();
         loadPosts();
@@ -50,9 +71,7 @@ public class SecurityHelpy extends JFrame {
 
     private void createWidgets() {
         setTitle("Security Helpy");
-        String iconPath = "D:/Security Helpy/img/logo_new.png";
-        File icon = new File(iconPath);
-        ImageIcon imgicon = new ImageIcon(iconPath);
+        ImageIcon imgicon = new ImageIcon(icon);
 
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -165,15 +184,24 @@ public class SecurityHelpy extends JFrame {
             String jsonText = readUrl(dataUrl);
             JSONArray posts = new JSONArray(jsonText);
             DefaultListModel<String> listModel = new DefaultListModel<>();
+            String search_try = null;
             for (int i = 0; i < posts.length(); i++) {
                 JSONObject post = posts.getJSONObject(i);
                 String title = post.getString("title").toLowerCase();
                 String content = post.getString("html").toLowerCase();
+                search_try = "true";
                 if (title.contains(searchTerm) || content.contains(searchTerm)) {
                     listModel.addElement(post.getString("title"));
+                } else {
+                    search_try = "false";
                 }
             }
-            postsList.setModel(listModel);
+            if (Objects.equals(search_try, "true")) {
+                postsList.setModel(listModel);
+            } else if (Objects.equals(search_try, "false")) {
+                JOptionPane.showMessageDialog(this, "No se encontró resultados para '" + searchTerm + "'", "Guia no encontrada", JOptionPane.WARNING_MESSAGE);
+                loadHighlightedPosts();
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al buscar ayuda: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }

@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="securityhelpy:jar">
-    <output-path>$PROJECT_DIR$/../build</output-path>
+    <output-path>$PROJECT_DIR$/../build/jar</output-path>
     <root id="archive" name="securityhelpy.jar">
       <element id="module-output" name="securityhelpy" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/json-20240303.jar" path-in-jar="/" />
