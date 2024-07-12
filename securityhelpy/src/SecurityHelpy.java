@@ -17,10 +17,10 @@ import org.json.JSONObject;
 import java.io.File;
 
 public class SecurityHelpy extends JFrame {
-    private static final String version_app = "2.0";
+    private static final String version_app = "1.1.0";
     private static final String creditos = "\nGracias por usar Security Helpy!\nDesarrollado por: TripleAn\nGitHub: https://github.com/triplean\n";
     private JTextField searchField;
-    private JButton searchButton, homeButton, versionButton;
+    private JButton searchButton, homeButton, speedButton;
     private JList<String> postsList;
     private JEditorPane postsText;
 
@@ -32,7 +32,7 @@ public class SecurityHelpy extends JFrame {
 
     private void checkUpdates() {
         try {
-            URL url = new URL("https://raw.githubusercontent.com/triplean/triplean.github.io/main/projects/SecurityHelpy/resources/ver.txt");
+            URL url = new URL("https://triplean.github.io/projects/SecurityHelpy/resources/ver_java.txt");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             Scanner scanner = new Scanner(conn.getInputStream());
@@ -64,13 +64,15 @@ public class SecurityHelpy extends JFrame {
         searchField = new JTextField(20);
         searchButton = new JButton("Buscar");
         homeButton = new JButton("Regresar a inicio");
-        versionButton = new JButton("Speedruns");
+        speedButton = new JButton("Speedruns");
+        JLabel ver_lbl = new JLabel("Versión: " + version_app);
 
         topPanel.add(buscarLabel);
         topPanel.add(searchField);
         topPanel.add(searchButton);
         topPanel.add(homeButton);
-        topPanel.add(versionButton);
+        topPanel.add(speedButton);
+        topPanel.add(ver_lbl);
         add(topPanel, BorderLayout.NORTH);
 
         postsList = new JList<>();
@@ -109,7 +111,7 @@ public class SecurityHelpy extends JFrame {
             }
         });
 
-        versionButton.addActionListener(new ActionListener() {
+        speedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 openSpeedrunVersion();
@@ -166,7 +168,7 @@ public class SecurityHelpy extends JFrame {
             for (int i = 0; i < posts.length(); i++) {
                 JSONObject post = posts.getJSONObject(i);
                 String title = post.getString("title").toLowerCase();
-                String content = post.getString("content").toLowerCase();
+                String content = post.getString("html").toLowerCase();
                 if (title.contains(searchTerm) || content.contains(searchTerm)) {
                     listModel.addElement(post.getString("title"));
                 }
