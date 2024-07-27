@@ -1,6 +1,8 @@
 # Security Helpy (Java edition)
 Making Security Breach more casual player friendly
 
+###### [Python Edition](https://github.com/triplean/securityhelpy)
+
 ## What is the difference between Python and Java Edition?
 Python Edition, tends to be slower or not compatible with some devices, but you can run or build very easy.
 
