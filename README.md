@@ -1,7 +1,7 @@
 # Security Helpy (Java edition)
 Making Security Breach more casual player friendly
 
-###### Also you can see [Python Edition](https://github.com/triplean/securityhelpy)
+###### Also you can see [Python Edition](https://github.com/triplean/pysecurityhelpy)
 
 ##### Note: Guides are still in progress.
 
